@@ -5,7 +5,6 @@
  */
 package net.gesher.cn1SysLogs;
 
-import com.codename1.ui.Display;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +17,7 @@ import android.os.Process;
 public class SystemLogUtilImpl implements SystemLogUtil{
 
     @Override
-    public String getSysErrorLog() {
+    public String getSysErrorLog(int max) {
         //write log to file
         int pid = android.os.Process.myPid();
         StringBuilder result = new StringBuilder();
@@ -29,9 +28,10 @@ public class SystemLogUtilImpl implements SystemLogUtil{
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String currentLine = null;
-
-            while ((currentLine = reader.readLine()) != null) {
+            int counter = 0;
+            while ((currentLine = reader.readLine()) != null && counter < max) {
                    if (currentLine != null && currentLine.contains(String.valueOf(pid))) {
+                       counter++;
                        result.append(currentLine);
                        result.append("\n");
                     }
@@ -52,15 +52,11 @@ public class SystemLogUtilImpl implements SystemLogUtil{
 
     /**
      * returns true if platform is supported.
-     * currently we only support android
      * @return Boolean
      */
     @Override
     public boolean isSupported() {
-        if(Display.getInstance().getPlatformName().equals("and")){
-            return true;
-        }
-        return false;
+        return true;
     }
     
 }
