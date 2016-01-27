@@ -16,6 +16,6 @@ Usage
 -----
 There's only one method, and it's static.  It has two different signatures, with no arguments or setting the number of lines you want to return from the system error logs.  The default is 150.
 
-  String log = SystemLogsUtil.getSysErrorLogs();
+`String log = SystemLogsUtil.getSysErrorLogs();`
 
-  String log = SystemLogsUtil.getSysErrorLogs(250);
+`String log = SystemLogsUtil.getSysErrorLogs(250);`
